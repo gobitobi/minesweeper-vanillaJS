@@ -4,7 +4,7 @@ class Tile {
         this.col = col;
         this.isMine = false;
         this.mineNeighbours = 0;
-        this.hidden = false;
+        this.hidden = true;
     }
 }
 

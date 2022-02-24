@@ -22,18 +22,23 @@ body {
 }
 
 .board {
-    width: 300px;
-    height: 300px;
+    width: 500px;
+    height: 500px;
     background-color: rgba(0, 0, 0, 0.2);
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
 }
 
 .tile-piece {
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
     background: rgba(255, 0, 0, 0.5);
     outline: 1px solid black;
     border: none;
+}
+
+.hidden {
+    color: gray;
+    background: gray;
 }
