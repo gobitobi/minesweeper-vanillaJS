@@ -17,6 +17,7 @@ body {
     height: 75vh;
     width: 75vw;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -40,7 +41,10 @@ body {
     align-items: center;
     font-weight: bold;
     font-size: 2rem;
-    border: none;
+    border-right: 5px solid rgb(50, 50, 50);
+    border-bottom: 5px solid rgb(50, 50, 50);
+    border-top: 5px solid rgb(255, 255, 255);
+    border-left: 5px solid rgb(255, 255, 255);
 }
 
 .board>[data-status="hidden"] {
@@ -49,10 +53,12 @@ body {
 }
 
 .board>[data-status="mine"] {
-    background-color: red;
+    background-color: black;
+    border: 1px solid black;
 }
 
 .board>[data-status="revealed"] {
+    border: none;
     background-color: white;
 }
 

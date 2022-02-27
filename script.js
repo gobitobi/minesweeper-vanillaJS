@@ -15,10 +15,11 @@ import { createBoard, flagTile, initializeBoard, revealTile, checkGameEnd } from
 // helpers.renderBoard(screenBoard, board)
 // console.log(board)
 
-const BOARD_SIZE = 5 // 100 tiles
-const NUMBER_OF_MINES = 1
+const BOARD_SIZE = 15
+const NUMBER_OF_MINES = 20
 
-const board = createBoard(BOARD_SIZE, NUMBER_OF_MINES)
+let board = createBoard(BOARD_SIZE)
+const restartBtn = document.querySelector('.restart-btn')
     // console.log(board)
 const boardElement = document.querySelector('.board')
 boardElement.style.setProperty('--boardSize', BOARD_SIZE)
@@ -47,5 +48,21 @@ const gameStart = () => {
         })
     });
 }
+
+const refreshGame = () => {
+    removeAllChildNodes(boardElement)
+    board = createBoard(BOARD_SIZE)
+}
+
+const removeAllChildNodes = (parent) => {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
+
+restartBtn.addEventListener("click", () => {
+    refreshGame()
+    gameStart()
+})
 
 gameStart()

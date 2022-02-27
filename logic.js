@@ -10,7 +10,7 @@ const STATUSES = {
     MARKED: 'marked'
 }
 
-export const createBoard = (boardSize, numOfMines) => {
+export const createBoard = (boardSize) => {
     const board = []
     for (let i = 0; i < boardSize; i++) {
         const row = []
@@ -57,10 +57,8 @@ export const flagTile = (tile) => {
     }
     if (tile.status == 'marked') {
         tile.setStatus('hidden')
-        console.log(tile.getStatus())
     } else {
         tile.setStatus('marked')
-        console.log(tile.getStatus())
     }
 }
 
@@ -80,15 +78,12 @@ const countNearbyMines = array => {
 }
 
 export const checkGameEnd = (e, board) => {
-    console.log('checkGameEnd')
     if (e.target.dataset.status == "mine") {
         console.log('game lose')
         revealAllMines(board)
         disableClicks(board)
     }
 
-    console.log(allNonMinesRevealed(board))
-    console.log(allMinesFlagged(board))
     if (allNonMinesRevealed(board) && allMinesFlagged(board)) {
         console.log('win!')
         disableClicks(board)
@@ -96,9 +91,6 @@ export const checkGameEnd = (e, board) => {
 
 }
 
-const checkWin = () => {
-    return
-}
 
 const allNonMinesRevealed = (board) => {
     for (let i = 0; i < board.length; i++) {
