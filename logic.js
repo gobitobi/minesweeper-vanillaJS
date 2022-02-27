@@ -1,7 +1,7 @@
 import Tile from "./classes/Tile.js"
-import { generateMines } from "./generateMines.js"
-import { calculateNeighbours } from './calculateNeighbours.js'
-import { getNearbyTiles } from "./getNearbyTiles.js"
+import { generateMines } from "./helpers/generateMines.js"
+import { calculateNeighbours } from './helpers/calculateNeighbours.js'
+import { getNearbyTiles } from "./helpers/getNearbyTiles.js"
 
 const STATUSES = {
     HIDDEN: 'hidden',

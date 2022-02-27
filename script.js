@@ -1,5 +1,3 @@
-// import * as helpers from './helpers.js'
-import { calculateNeighbours } from './calculateNeighbours.js'
 import { createBoard, flagTile, initializeBoard, revealTile, checkGameEnd } from './logic.js'
 
 
