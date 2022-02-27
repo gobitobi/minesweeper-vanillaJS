@@ -16,7 +16,7 @@ export const createBoard = (boardSize, numOfMines) => {
         const row = []
         for (let j = 0; j < boardSize; j++) {
             // create class with div element
-            const element = document.createElement('div')
+            const element = document.createElement('button')
             element.classList.add('tile-piece')
             element.dataset.status = "hidden"
 
@@ -48,7 +48,6 @@ export const revealTile = (board, tile) => {
         tile.setStatus("revealed")
         tile.element.innerText = `${tile.mineNeighbours}`
     }
-
 }
 
 
@@ -78,4 +77,65 @@ const countNearbyMines = array => {
         }
     }
     return count
+}
+
+export const checkGameEnd = (e, board) => {
+    console.log('checkGameEnd')
+    if (e.target.dataset.status == "mine") {
+        console.log('game lose')
+        revealAllMines(board)
+        disableClicks(board)
+    }
+
+    console.log(allNonMinesRevealed(board))
+    console.log(allMinesFlagged(board))
+    if (allNonMinesRevealed(board) && allMinesFlagged(board)) {
+        console.log('win!')
+        disableClicks(board)
+    }
+
+}
+
+const checkWin = () => {
+    return
+}
+
+const allNonMinesRevealed = (board) => {
+    for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board.length; j++) {
+            const tile = board[i][j]
+            if (!tile.isMine && tile.status != "revealed") return false
+        }
+    }
+    return true
+}
+
+const allMinesFlagged = (board) => {
+    for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board.length; j++) {
+            const tile = board[i][j]
+            if (tile.isMine && tile.status != "marked") return false
+        }
+    }
+    return true
+}
+
+const revealAllMines = (board) => {
+    for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board.length; j++) {
+            const tile = board[i][j]
+            if (tile.isMine) {
+                tile.setStatus("mine")
+            }
+        }
+    }
+}
+
+const disableClicks = (board) => {
+    for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board.length; j++) {
+            const tile = board[i][j]
+            tile.element.disabled = true
+        }
+    }
 }

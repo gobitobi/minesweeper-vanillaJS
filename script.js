@@ -1,6 +1,6 @@
 // import * as helpers from './helpers.js'
 import { calculateNeighbours } from './calculateNeighbours.js'
-import { createBoard, flagTile, initializeBoard, revealTile } from './logic.js'
+import { createBoard, flagTile, initializeBoard, revealTile, checkGameEnd } from './logic.js'
 
 
 // board
@@ -15,29 +15,37 @@ import { createBoard, flagTile, initializeBoard, revealTile } from './logic.js'
 // helpers.renderBoard(screenBoard, board)
 // console.log(board)
 
-const BOARD_SIZE = 10 // 100 tiles
-const NUMBER_OF_MINES = 10
+const BOARD_SIZE = 5 // 100 tiles
+const NUMBER_OF_MINES = 1
 
 const board = createBoard(BOARD_SIZE, NUMBER_OF_MINES)
     // console.log(board)
 const boardElement = document.querySelector('.board')
 boardElement.style.setProperty('--boardSize', BOARD_SIZE)
 
-initializeBoard(board, NUMBER_OF_MINES)
-    // console.log(board)
-board.forEach(row => {
-    row.forEach(tile => {
-        boardElement.append(tile.element)
+const handleLeftClick = (e, tile, board) => {
+    revealTile(board, tile)
+    checkGameEnd(e, board)
+}
 
-        // left click event listener
-        tile.element.addEventListener('click', () => {
-            revealTile(board, tile)
-        })
+const gameStart = () => {
+    initializeBoard(board, NUMBER_OF_MINES)
+    board.forEach(row => {
+        row.forEach(tile => {
+            boardElement.append(tile.element)
 
-        // right click event listener 
-        tile.element.addEventListener('contextmenu', e => {
-            e.preventDefault()
-            flagTile(tile)
+            // left click event listener
+            tile.element.addEventListener('click', e => {
+                handleLeftClick(e, tile, board)
+            })
+
+            // right click event listener 
+            tile.element.addEventListener('contextmenu', e => {
+                e.preventDefault()
+                flagTile(tile)
+            })
         })
-    })
-});
+    });
+}
+
+gameStart()
