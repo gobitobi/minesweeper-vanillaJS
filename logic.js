@@ -3,12 +3,6 @@ import { generateMines } from "./helpers/generateMines.js"
 import { calculateNeighbours } from './helpers/calculateNeighbours.js'
 import { getNearbyTiles } from "./helpers/getNearbyTiles.js"
 
-const STATUSES = {
-    HIDDEN: 'hidden',
-    MINE: 'mine',
-    REVEALED: 'revealed',
-    MARKED: 'marked'
-}
 
 export const createBoard = (boardSize) => {
     const board = []
@@ -34,6 +28,7 @@ export const revealTile = (board, tile) => {
 
     if (tile.isMine) {
         tile.setStatus("mine")
+        tile.element.innerText = 'X'
         return
     }
 
@@ -82,12 +77,15 @@ export const checkGameEnd = (e, board) => {
         console.log('game lose')
         revealAllMines(board)
         disableClicks(board)
+        return [true, false] // [isGameOver, didPlayerWin]
     }
 
     if (allNonMinesRevealed(board) && allMinesFlagged(board)) {
         console.log('win!')
         disableClicks(board)
+        return [true, true] // [isGameOver, didPlayerWin]
     }
+    return [false, false]
 
 }
 
